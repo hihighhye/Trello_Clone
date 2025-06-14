@@ -1,0 +1,8 @@
+.hidden {
+    display: none !important;
+}
+
+.canceled {
+    color: #0055CC;
+    text-decoration: line-through;
+}

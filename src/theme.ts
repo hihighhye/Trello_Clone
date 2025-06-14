@@ -6,5 +6,6 @@ export const theme: DefaultTheme = {
     accentColor: "white",
     boardColor: "#F1F2F4",
     cardBgColor: "white",
-    headerBgColor: "#005C91"
+    headerBgColor: "#005C91",
+    btnColor: "#0055CC",
 }
