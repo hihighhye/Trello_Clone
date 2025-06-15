@@ -7,6 +7,7 @@ import { AddBoardText, AddBtn, BtnContainer, CancelBtn } from "./Components/Butt
 import styles from "./css/Common.module.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
 
 const Header = styled.div`
     width: 100%;
@@ -114,6 +115,9 @@ function App() {
 
   return (
     <>
+    <Helmet>
+      <title>Trello_Clone</title>
+    </Helmet>
     <Header>Basic Board</Header>
     <Container>
       <DragDropContext onDragEnd={onDragEnd}>
