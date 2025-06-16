@@ -3,9 +3,10 @@ import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import styles from "../css/Common.module.css";
 import { CardDelBtn } from "./Buttons";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
 import { IToDo, toDoState, IToDoState } from "../atoms";
+import { skipPartiallyEmittedExpressions } from "typescript";
 
 const Card = styled.div<ICardProps>`
     color: ${(props) => props.theme.textColor};
@@ -26,6 +27,7 @@ interface ICardProps {
 
 interface IDragabbleCardProps {
     toDoId: number;
+    toDoIsChecked: boolean;
     toDoText: string;
     index: number;
 }
@@ -34,8 +36,9 @@ interface IDelProps {
     toDoId: number;
 }
 
-function DragabbleCard({ toDoId, toDoText, index }: IDragabbleCardProps) {
+function DragabbleCard({ toDoId, toDoIsChecked, toDoText, index }: IDragabbleCardProps) {
 //   console.log(toDo, "has been rendered"); 
+    const setToDos = useSetRecoilState(toDoState);
     const [isChecked, setIsChecked] = useState(false);
     const cardDelBtnRef = useRef<HTMLButtonElement>(null);
     const handleCardMouseEnter = () => {
@@ -47,11 +50,32 @@ function DragabbleCard({ toDoId, toDoText, index }: IDragabbleCardProps) {
     const handleChecked = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (!isChecked) {
             event.currentTarget.nextElementSibling?.classList.add(styles.canceled);
+            
         }
         else {
             event.currentTarget.nextElementSibling?.classList.remove(styles.canceled);
         }
         setIsChecked((prev) => !prev);
+
+        const toDoId = parseInt(event.currentTarget.name);
+        setToDos(allBoards => {
+            let newBoards:IToDoState = {};
+            const boardIdList = Object.keys(allBoards);
+            boardIdList.forEach((boardId:string) => {
+                let newBoard:IToDo[] = [];
+                allBoards[boardId].forEach(({id, isChecked, text}:IToDo) => {
+                    if (id === toDoId) {
+                        newBoard = [...newBoard, {id: id, isChecked: !isChecked, text: text}];
+                    }
+                    else {
+                        newBoard = [...newBoard, {id: id, isChecked: isChecked, text: text}];
+                    }
+                });
+                newBoards[boardId] = newBoard;
+            })
+            // saveTodos(newBoards);
+            return newBoards;
+        })
     }
 
     const onClickDel = ({toDoId}: IDelProps) => {
@@ -69,8 +93,6 @@ function DragabbleCard({ toDoId, toDoText, index }: IDragabbleCardProps) {
         })
     }
 
-    const setToDos = useSetRecoilState(toDoState);
-
     return (
         <Draggable draggableId={toDoId + ""} index={index}>
         {(magic, snapshot) => (
@@ -85,10 +107,10 @@ function DragabbleCard({ toDoId, toDoText, index }: IDragabbleCardProps) {
                 <input 
                     type="checkbox" 
                     name={toDoId + ""}
-                    checked={isChecked} 
+                    checked={toDoIsChecked} 
                     onChange={handleChecked}
                 />
-                <span>{toDoText}</span>
+                <span className={toDoIsChecked ? styles.canceled : ""}>{toDoText}</span>
                 <CardDelBtn
                     ref={cardDelBtnRef} 
                     className={styles.hidden}

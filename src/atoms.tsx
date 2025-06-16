@@ -10,6 +10,7 @@ const {persistAtom} = recoilPersist({
 
 export interface IToDo {
     id: number;
+    isChecked: boolean;
     text: string;
 }
 
@@ -43,14 +44,14 @@ export const toDoState = atom<IToDoState>({
     key: "toDo",  
     default: {
         To_Do: [
-            {id: 1, text: "Invite collaborators to your board by selecting the menu to the right of the notifications bell."},
-            {id: 2, text: "This is a card! 👋 Select it to see its card back."},
+            {id: 1, isChecked: false, text: "Invite collaborators to your board by selecting the menu to the right of the notifications bell."},
+            {id: 2, isChecked: false, text: "This is a card! 👋 Select it to see its card back."},
         ],
         Doing: [
-               {id: 3, text: "Hold and drag to move this card to another list 👉"},
+               {id: 3, isChecked: false, text: "Hold and drag to move this card to another list 👉"},
         ],
         Done: [
-            {id: 4, text: "This card has a label and a checklist."},
+            {id: 4, isChecked: false, text: "This card has a label and a checklist."},
         ]
     },
     effects_UNSTABLE: [persistAtom],

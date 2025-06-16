@@ -82,6 +82,7 @@ function DroppableBoard({toDos, boardId}:IDroppableBoardProps) {
     const onValid = ({todo}:IForm) => {
         const newToDo = {
             id: Date.now(),
+            isChecked: false,
             text: todo
         };
         setToDos(allBoards => {
@@ -145,7 +146,7 @@ function DroppableBoard({toDos, boardId}:IDroppableBoardProps) {
                                 {...provided.droppableProps}
                             >
                                 {toDos.map((toDo, index) => (
-                                    <DragabbleCard key={toDo.id} toDoId={toDo.id} toDoText={toDo.text} index={index} />
+                                    <DragabbleCard key={toDo.id} toDoId={toDo.id} toDoIsChecked={toDo.isChecked} toDoText={toDo.text} index={index} />
                                 ))}
                                 {provided.placeholder}
                             </CardWrapper>
