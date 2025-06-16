@@ -5,7 +5,7 @@ import styles from "../css/Common.module.css";
 import { CardDelBtn } from "./Buttons";
 import { useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
-import { IToDo, toDoState, IToDoState, saveTodos } from "../atoms";
+import { IToDo, toDoState, IToDoState } from "../atoms";
 
 const Card = styled.div<ICardProps>`
     color: ${(props) => props.theme.textColor};
@@ -64,7 +64,7 @@ function DragabbleCard({ toDoId, toDoText, index }: IDragabbleCardProps) {
                 copiedBoard = copiedBoard.filter(({id, text}:IToDo) => (id !== toDoId));
                 newBoards[boardId] = copiedBoard;
             })
-            saveTodos(newBoards);
+            // saveTodos(newBoards);
             return newBoards;
         })
     }

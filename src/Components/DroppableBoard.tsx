@@ -2,7 +2,7 @@ import { Droppable } from "react-beautiful-dnd";
 import DragabbleCard from "./DragabbleCard";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { IToDo, IToDoState, saveTodos, toDoState } from "../atoms";
+import { IToDo, IToDoState, toDoState } from "../atoms";
 import { useSetRecoilState } from "recoil";
 import { useRef, useState } from "react";
 import styles from "../css/Common.module.css";
@@ -92,7 +92,7 @@ function DroppableBoard({toDos, boardId}:IDroppableBoardProps) {
                     newToDo
                 ]
             }
-            saveTodos(updatedTodos);
+            // saveTodos(updatedTodos);
             return updatedTodos;
         })
         setValue("todo", "");
@@ -118,7 +118,7 @@ function DroppableBoard({toDos, boardId}:IDroppableBoardProps) {
                     todostate[key] = allBoards[key];
                     return todostate;
                 }, {});
-            saveTodos(updatedTodos);
+            // saveTodos(updatedTodos);
             return updatedTodos;
         })
     }

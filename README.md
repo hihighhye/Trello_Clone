@@ -10,6 +10,7 @@
 - react-hook-form@7.57.0
 - react-beautiful-dnd@13.1.1
 - lucide-react@0.513.0
+- recoil-persist@5.1.0
 
 <br>
 
@@ -25,6 +26,8 @@ npm list lucide-react
 
 npm i react-helmet
 npm i --save-dev @types/react-helmet
+
+npm i recoil-persist
 ```
 
 <br>

@@ -1,7 +1,7 @@
 import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { IToDoState, saveTodos, TODOS_KEY, toDoState } from "./atoms";
+import { IToDoState, toDoState } from "./atoms";
 import DroppableBoard from "./Components/DroppableBoard";
 import { AddBoardText, AddBtn, BtnContainer, CancelBtn } from "./Components/Buttons";
 import styles from "./css/Common.module.css";
@@ -78,7 +78,7 @@ function App() {
           ...allBoards,
           [destination.droppableId]: boardCopy,
         };
-        saveTodos(updatedTodos);
+        // saveTodos(updatedTodos);
         return updatedTodos;
       })
     }
@@ -94,7 +94,7 @@ function App() {
           [source.droppableId]: sBoardCopy,
           [destination.droppableId]: dBoardCopy,
         };
-        saveTodos(updatedTodos);
+        // saveTodos(updatedTodos);
         return updatedTodos;
       })
     }     
@@ -107,7 +107,7 @@ function App() {
             ...allBoards,
             [boardId]: []
         }
-        saveTodos(updatedTodos);
+        // saveTodos(updatedTodos);
         return updatedTodos;
       })
       setAddNew(false);
